@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- location name -->
+    <string-array name="locationList">
+        <item>Scarborough</item>
+        <item>Oakville</item>
+        <item>Hamilton</item>
+        <item>Brampton</item>
+    </string-array>
+</resources>
