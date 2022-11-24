@@ -19,10 +19,10 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     // coordinates of Scarborough Oakville Hamilton Brampton
-    private final double[] LATLNT_SCARBO = new double[]{ 43.777702, -79.233238 };
-    private final double[] LATLNT_OAK = new double[]{ 43.4669, -79.6858 };
-    private final double[] LATLNT_HAMIL = new double[]{ 43.255203, -79.843826 };
-    private final double[] LATLNT_BRAMP = new double[]{ 43.683334, -79.766670 };
+    private final double[] LATLNT_SCARBO = new double[]{ 43.777702, -79.233238 , 0 };
+    private final double[] LATLNT_OAK = new double[]{ 43.4669, -79.6858 , 1 };
+    private final double[] LATLNT_HAMIL = new double[]{ 43.255203, -79.843826, 2 };
+    private final double[] LATLNT_BRAMP = new double[]{ 43.683334, -79.766670, 3 };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
                 prefEditor.putString("LAT", mapLATLNT.get(position)[0] + "");
                 prefEditor.putString("LNT", mapLATLNT.get(position)[1] + "");
+                prefEditor.putString("KEY", mapLATLNT.get(position)[2] + "");
                 prefEditor.commit();
 
                 startActivity(intent);
@@ -66,19 +67,46 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Cinemas> generateCinemas() {
         List<Cinemas> list = new ArrayList<>();
+
+        // Scarborough
         list.add(
             new Cinemas("Cineplex Cinemas Scarborough", 43.77902484707892, -79.25522211279386,
                 "+14162905217", "09:00 - 23:00", "https://www.cineplex.com/Theatre/cineplex-cinemas-scarborough")
         );
-
         list.add(
             new Cinemas("Cineplex Odeon Morningside Cinemas", 43.80128366566005, -79.20313041060764,
                 "+14162811444", "09:00 - 23:00", "https://www.cineplex.com/Theatre/cineplex-odeon-morningside-cinemas")
         );
-
         list.add(
             new Cinemas("Cineplex Odeon Eglinton Town Centre Cinemas", 43.72665840985135, -79.26734997131088,
-                "+14167524494", "09:00 - 23:00", "http://www.cineplex.com/Theatre/cineplex-odeon-eglinton-town-centre-cinemas?utm_source=google&utm_medium=organic&utm_campaign=local&utm_content=CPXEglinton")
+                "+14167524494", "09:00 - 23:00", "http://www.cineplex.com/Theatre/cineplex-odeon-eglinton-town-centre-cinemas")
+        );
+        // Oakville
+        list.add(
+          new Cinemas("Cineplex Cinemas Oakville and VIP", 43.395678745035454, -79.75164813477491,
+                  "+19058277173", "09:45 –21:15", "https://www.cineplex.com/Theatres/VIP")
+        );
+        list.add(
+                new Cinemas("Cineplex Cinemas Winston Churchill & VIP", 43.51505580429028, -79.65895099026253,
+                        "+19058292009", "Mon–Thu 3:45 pm–10:00 pm Fri 3:45 pm–10:30 pm Sat, Sun 1:00 pm–10:30 pm", "http://www.cineplex.com/vip")
+        );
+        // Hamilton
+        list.add(
+                new Cinemas("Cineplex Cinemas Hamilton Mountain", 43.19352678464059, -79.80919360160459,
+                        "+19055600239", "17:45–22:45", "https://www.cineplex.com/theatre/cineplex-cinemas-hamilton-mountain")
+        );
+        // Brampton
+        list.add(
+                new Cinemas("SilverCity Brampton Cinemas", 43.73655811372682, -79.76686027778374,
+                        "+19057896797", "09:15–23:00", "https://www.cineplex.com/theatre/silvercity-brampton-cinemas")
+        );
+        list.add(
+                new Cinemas("Cineplex Odeon Orion Gate Cinemas", 43.68394637150859, -79.71604850962471,
+                        "+19054551590", "12:00–23:00", "https://www.cineplex.com/theatre/cinema-cineplex-odeon-carrefour-dorion")
+        );
+        list.add(
+                new Cinemas("Cineplex Cinemas Courtney Park", 43.64097898505509, -79.69098594830302,
+                        "+19053621234", "11:30–23:00", "https://www.cineplex.com/theatre/cineplex-cinemas-courtney-park")
         );
         return list;
     }

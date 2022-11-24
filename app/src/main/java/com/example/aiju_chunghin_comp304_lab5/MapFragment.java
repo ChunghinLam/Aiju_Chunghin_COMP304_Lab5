@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment {
@@ -42,13 +43,39 @@ public class MapFragment extends Fragment {
         // get cinemas
         List<Cinemas> cinemas = getList("cinemas", pref);
 
+        // get pin indexes
+        List<Integer> index = new ArrayList<>();
+        switch (Double.valueOf(pref.getString("KEY", null)).intValue()) {
+            case 0:
+                index.add(0);
+                index.add(1);
+                index.add(2);
+                break;
+            case 1:
+                index.add(3);
+                index.add(4);
+                break;
+            case 2:
+                index.add(5);
+                break;
+            case 3:
+                index.add(6);
+                index.add(7);
+                index.add(8);
+                break;
+
+            default:
+                break;
+        }
+
+
         // Initialize map fragment
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                mapLoad(googleMap, latitude, longitude, cinemas);
+                mapLoad(googleMap, latitude, longitude, cinemas, index);
             }
         });
 
@@ -61,7 +88,7 @@ public class MapFragment extends Fragment {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
                         // on load
-                        mapLoad(googleMap, latitude, longitude, cinemas);
+                        mapLoad(googleMap, latitude, longitude, cinemas, index);
                     }
                 });
             }
@@ -70,7 +97,8 @@ public class MapFragment extends Fragment {
         return view;
     }
 
-    private void mapLoad(GoogleMap googleMap, double latitude, double longitude, List<Cinemas> cinemas) {
+    private void mapLoad(GoogleMap googleMap, double latitude, double longitude,
+                         List<Cinemas> cinemas, List<Integer> pinIndex) {
         LatLng selectedCity = new LatLng(latitude, longitude);
         map = googleMap;
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
@@ -78,7 +106,8 @@ public class MapFragment extends Fragment {
         map.setMapType(mapType);
 
         // add marker
-        for (Cinemas c : cinemas) {
+        for (Integer i : pinIndex){
+            Cinemas c = cinemas.get(i);
             LatLng latLng = new LatLng(c.getLat(), c.getLnt());
             map.addMarker(new MarkerOptions().position(latLng).title(c.getCinemaName()));
         }
