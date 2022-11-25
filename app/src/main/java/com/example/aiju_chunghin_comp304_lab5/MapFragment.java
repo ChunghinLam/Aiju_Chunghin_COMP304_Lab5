@@ -2,16 +2,23 @@ package com.example.aiju_chunghin_comp304_lab5;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,11 +26,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment {
@@ -42,13 +51,39 @@ public class MapFragment extends Fragment {
         // get cinemas
         List<Cinemas> cinemas = getList("cinemas", pref);
 
+        // get pin indexes
+        List<Integer> index = new ArrayList<>();
+        switch (Double.valueOf(pref.getString("KEY", null)).intValue()) {
+            case 0:
+                index.add(0);
+                index.add(1);
+                index.add(2);
+                break;
+            case 1:
+                index.add(3);
+                index.add(4);
+                break;
+            case 2:
+                index.add(5);
+                break;
+            case 3:
+                index.add(6);
+                index.add(7);
+                index.add(8);
+                break;
+
+            default:
+                break;
+        }
+
+
         // Initialize map fragment
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                mapLoad(googleMap, latitude, longitude, cinemas);
+                mapLoad(googleMap, latitude, longitude, cinemas, index);
             }
         });
 
@@ -61,7 +96,7 @@ public class MapFragment extends Fragment {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
                         // on load
-                        mapLoad(googleMap, latitude, longitude, cinemas);
+                        mapLoad(googleMap, latitude, longitude, cinemas, index);
                     }
                 });
             }
@@ -70,7 +105,8 @@ public class MapFragment extends Fragment {
         return view;
     }
 
-    private void mapLoad(GoogleMap googleMap, double latitude, double longitude, List<Cinemas> cinemas) {
+    private void mapLoad(GoogleMap googleMap, double latitude, double longitude,
+                         List<Cinemas> cinemas, List<Integer> pinIndex) {
         LatLng selectedCity = new LatLng(latitude, longitude);
         map = googleMap;
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
@@ -78,10 +114,46 @@ public class MapFragment extends Fragment {
         map.setMapType(mapType);
 
         // add marker
-        for (Cinemas c : cinemas) {
+        for (Integer i : pinIndex){
+            Cinemas c = cinemas.get(i);
             LatLng latLng = new LatLng(c.getLat(), c.getLnt());
-            map.addMarker(new MarkerOptions().position(latLng).title(c.getCinemaName()));
+            map.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(c.getCinemaName())
+                    .snippet("Open hours:\n"+c.getHours())
+            );
         }
+
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Nullable
+            @Override
+            public View getInfoWindow(@NonNull Marker marker) {
+                return null;
+            }
+
+            @Nullable
+            @Override
+            public View getInfoContents(@NonNull Marker marker) {
+                Context mContext = getActivity();
+                LinearLayout info = new LinearLayout(mContext);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(mContext);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(mContext);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
 
         // on click
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
