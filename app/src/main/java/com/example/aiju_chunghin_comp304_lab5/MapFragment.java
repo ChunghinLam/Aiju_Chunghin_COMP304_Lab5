@@ -72,7 +72,6 @@ public class MapFragment extends Fragment {
             case 3:
                 index.add(6);
                 index.add(7);
-                index.add(8);
                 break;
 
             default:
@@ -124,7 +123,9 @@ public class MapFragment extends Fragment {
                     .position(latLng)
                     .title(c.getCinemaName())
                     .snippet("Open hours:\n"+c.getHours()+"\n"+
-                             "Phone:"+c.getPhone())
+                             "Address: "+c.getAddress()+"\n"+
+                             "Phone: "+c.getPhone()+"\n"+
+                             "Website: "+c.getWebsite())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker))
             );
         }

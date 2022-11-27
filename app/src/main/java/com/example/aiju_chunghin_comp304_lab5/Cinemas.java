@@ -5,16 +5,18 @@ public class Cinemas {
     private double lat;
     private double lnt;
     private String phone;
+    private String address;
     private String hours;
     private String website;
 
-    public Cinemas(String cinemaName, double lat, double lnt, String phone, String hours, String website) {
+    public Cinemas(String cinemaName, double lat, double lnt, String phone, String hours, String website, String address) {
         this.cinemaName = cinemaName;
         this.lat = lat;
         this.lnt = lnt;
         this.phone = phone;
         this.hours = hours;
         this.website = website;
+        this.address = address;
     }
 
     public String getCinemaName() {
@@ -63,5 +65,13 @@ public class Cinemas {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
