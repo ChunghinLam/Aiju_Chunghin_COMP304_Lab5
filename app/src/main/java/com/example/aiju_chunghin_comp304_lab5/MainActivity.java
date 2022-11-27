@@ -71,42 +71,46 @@ public class MainActivity extends AppCompatActivity {
         // Scarborough
         list.add(
             new Cinemas("Cineplex Cinemas Scarborough", 43.77902484707892, -79.25522211279386,
-                "+14162905217", "09:00 - 23:00", "https://www.cineplex.com/Theatre/cineplex-cinemas-scarborough")
+                "+14162905217", "09:00 - 23:00", "https://www.cineplex.com/Theatre/cineplex-cinemas-scarborough",
+                    "Scarborough Town Centre, 300 Borough Dr, Scarborough, ON M1P 4P5")
         );
         list.add(
             new Cinemas("Cineplex Odeon Morningside Cinemas", 43.80128366566005, -79.20313041060764,
-                "+14162811444", "09:00 - 23:00", "https://www.cineplex.com/Theatre/cineplex-odeon-morningside-cinemas")
+                "+14162811444", "09:00 - 23:00", "https://www.cineplex.com/Theatre/cineplex-odeon-morningside-cinemas",
+                    "785 Milner Ave, Scarborough, ON M1B 3C3")
         );
         list.add(
             new Cinemas("Cineplex Odeon Eglinton Town Centre Cinemas", 43.72665840985135, -79.26734997131088,
-                "+14167524494", "09:00 - 23:00", "http://www.cineplex.com/Theatre/cineplex-odeon-eglinton-town-centre-cinemas")
+                "+14167524494", "09:00 - 23:00", "http://www.cineplex.com/Theatre/cineplex-odeon-eglinton-town-centre-cinemas",
+                    "22 Lebovic Ave, Scarborough, ON M1L 4V9")
         );
         // Oakville
         list.add(
           new Cinemas("Cineplex Cinemas Oakville and VIP", 43.395678745035454, -79.75164813477491,
-                  "+19058277173", "09:45 –21:15", "https://www.cineplex.com/Theatres/VIP")
+                  "+19058277173", "09:45 –21:15", "https://www.cineplex.com/Theatres/VIP",
+                  "3531 Wyecroft Rd, Oakville, ON L6L 0B7")
         );
         list.add(
                 new Cinemas("Cineplex Cinemas Winston Churchill & VIP", 43.51505580429028, -79.65895099026253,
-                        "+19058292009", "Mon–Thu 3:45 pm–10:00 pm Fri 3:45 pm–10:30 pm Sat, Sun 1:00 pm–10:30 pm", "http://www.cineplex.com/vip")
+                        "+19058292009", "Mon–Thu 3:45 pm–10:00 pm Fri 3:45 pm–10:30 pm Sat, Sun 1:00 pm–10:30 pm", "http://www.cineplex.com/vip",
+                        "2081 Winston Park Dr, Oakville, ON L6H 6P5")
         );
         // Hamilton
         list.add(
                 new Cinemas("Cineplex Cinemas Hamilton Mountain", 43.19352678464059, -79.80919360160459,
-                        "+19055600239", "17:45–22:45", "https://www.cineplex.com/theatre/cineplex-cinemas-hamilton-mountain")
+                        "+19055600239", "17:45–22:45", "https://www.cineplex.com/theatre/cineplex-cinemas-hamilton-mountain",
+                        "795 Paramount Dr, Stoney Creek, ON L8J 0B4")
         );
         // Brampton
         list.add(
                 new Cinemas("SilverCity Brampton Cinemas", 43.73655811372682, -79.76686027778374,
-                        "+19057896797", "09:15–23:00", "https://www.cineplex.com/theatre/silvercity-brampton-cinemas")
-        );
-        list.add(
-                new Cinemas("Cineplex Odeon Orion Gate Cinemas", 43.68394637150859, -79.71604850962471,
-                        "+19054551590", "12:00–23:00", "https://www.cineplex.com/theatre/cinema-cineplex-odeon-carrefour-dorion")
+                        "+19057896797", "09:15–23:00", "https://www.cineplex.com/theatre/silvercity-brampton-cinemas",
+                        "50 Great Lakes Dr, Brampton, ON L6R 2K7")
         );
         list.add(
                 new Cinemas("Cineplex Cinemas Courtney Park", 43.64097898505509, -79.69098594830302,
-                        "+19053621234", "11:30–23:00", "https://www.cineplex.com/theatre/cineplex-cinemas-courtney-park")
+                        "+19053621234", "11:30–23:00", "https://www.cineplex.com/theatre/cineplex-cinemas-courtney-park",
+                        "110 Courtneypark Dr E, Mississauga, ON L5T 2Y3")
         );
         return list;
     }
