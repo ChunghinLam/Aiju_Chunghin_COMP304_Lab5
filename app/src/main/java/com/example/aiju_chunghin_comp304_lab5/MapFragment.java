@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -45,6 +47,7 @@ public class MapFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         SharedPreferences pref = getActivity().getSharedPreferences("Pref", Context.MODE_PRIVATE);
+
         double latitude = Double.parseDouble(pref.getString("LAT", ""));
         double longitude = Double.parseDouble(pref.getString("LNT", ""));
 
@@ -120,7 +123,9 @@ public class MapFragment extends Fragment {
             map.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(c.getCinemaName())
-                    .snippet("Open hours:\n"+c.getHours())
+                    .snippet("Open hours:\n"+c.getHours()+"\n"+
+                             "Phone:"+c.getPhone())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker))
             );
         }
 
@@ -137,6 +142,7 @@ public class MapFragment extends Fragment {
                 Context mContext = getActivity();
                 LinearLayout info = new LinearLayout(mContext);
                 info.setOrientation(LinearLayout.VERTICAL);
+                SharedPreferences pref = getActivity().getSharedPreferences("Pref", Context.MODE_PRIVATE);
 
                 TextView title = new TextView(mContext);
                 title.setTextColor(Color.BLACK);
@@ -148,6 +154,17 @@ public class MapFragment extends Fragment {
                 snippet.setTextColor(Color.GRAY);
                 snippet.setText(marker.getSnippet());
 
+                ImageView badge = new ImageView(mContext);
+                // Select badge image accordingly to the marker
+                int badgeImg = R.drawable.def_img;
+                List<Cinemas> cinemas = getList("cinemas", pref);
+                if (marker.getTitle().equals(cinemas.get(6).getCinemaName()))
+                    badgeImg = R.drawable.silvercity_brampton;
+                else if (marker.getTitle().equals(cinemas.get(7).getCinemaName()))
+                    badgeImg = R.drawable.odeon_orion_gate;
+                badge.setImageResource(badgeImg);
+
+                info.addView(badge);
                 info.addView(title);
                 info.addView(snippet);
 
